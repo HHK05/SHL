@@ -1,0 +1,47 @@
+{
+    "app": "SHL Assessment Recommender",
+    "input": {
+      "type": ["natural_language", "job_description_url"],
+      "description": "User inputs a natural language job description or a URL to a job posting."
+    },
+    "process": {
+      "steps": [
+        {
+          "step": "Extract or summarize text from input (if URL is provided)",
+          "method": "web scraping and NLP summarization"
+        },
+        {
+          "step": "Embed input text using Gemini model",
+          "method": "Google's Gemini embedding model"
+        },
+        {
+          "step": "Embed assessment descriptions from SHL catalog",
+          "source": "shl_courses2.json",
+          "fields_used": ["Assessment name", "Description"]
+        },
+        {
+          "step": "Compute cosine similarity between input embedding and each course embedding",
+          "method": "cosine_similarity"
+        },
+        {
+          "step": "Select top N (max 10, min 1) matching courses",
+          "criteria": "Highest similarity scores"
+        }
+      ]
+    },
+    "output": {
+      "type": "table",
+      "columns": [
+        "Assessment Name (linked to catalog URL)",
+        "Remote Testing Support (Yes/No)",
+        "Adaptive/IRT Support (Yes/No)",
+        "Duration",
+        "Test Type"
+      ],
+      "max_results": 10,
+      "min_results": 1
+    },
+    "data_source": "shl_courses2.json",
+    "model": "Google Gemini Embedding Model"
+  }
+  

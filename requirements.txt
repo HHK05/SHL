@@ -1,0 +1,8 @@
+beautifulsoup4
+pandas
+requests
+scikit-learn
+streamlit
+fastapi
+uvicorn
+pydantic
